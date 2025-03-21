@@ -63,8 +63,20 @@ public class GuestbookController {
         service.modify(dto);
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("type", requestDTO.getType());
+        redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());
         redirectAttributes.addAttribute("gno", dto.getGno());
 
         return "redirect:/guestbook/read";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long gno, RedirectAttributes redirectAttributes) {
+        log.info("gno: " + gno);
+
+        service.remove(gno);
+        redirectAttributes.addAttribute("msg", gno);
+
+        return "redirect:/guestbook/list";
     }
 }
